@@ -5,6 +5,7 @@ import (
 
 	"bookstore/rpc/add/add"
 	"bookstore/rpc/add/internal/svc"
+	"bookstore/rpc/model"
 
 	"github.com/tal-tech/go-zero/core/logx"
 )
@@ -24,7 +25,15 @@ func NewAddLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddLogic {
 }
 
 func (l *AddLogic) Add(in *add.AddReq) (*add.AddResp, error) {
-	// todo: add your logic here and delete this line
+	_, err := l.svcCtx.Model.Insert(model.Book{
+		Book:  in.Book,
+		Price: in.Price,
+	})
+	if err != nil {
+		return nil, err
+	}
 
-	return &add.AddResp{}, nil
+	return &add.AddResp{
+		Ok: true,
+	}, nil
 }
