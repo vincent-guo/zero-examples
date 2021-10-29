@@ -1,0 +1,29 @@
+type (
+	addReq {
+		Book  string `form:"book"`
+		Price int64  `form:"price"`
+	}
+
+	addResp {
+		Ok bool `json:"ok"`
+	}
+)
+
+type (
+	checkReq {
+		Book string `form:"book"`
+	}
+
+	checkResp {
+		Found bool  `json:"found"`
+		Price int64 `form:"price"`
+	}
+)
+
+service bookstore-api {
+	@handler Addhandler
+	get /add(addReq) returns(addResp)
+	
+	@handler CheckHandler
+	post /check(checkReq) returns(checkResp)
+}
