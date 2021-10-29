@@ -16,5 +16,5 @@ type CheckReq struct {
 
 type CheckResp struct {
 	Found bool  `json:"found"`
-	Price int64 `form:"price"`
+	Price int64 `json:"price"`
 }

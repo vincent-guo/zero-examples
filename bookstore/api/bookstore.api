@@ -16,14 +16,14 @@ type (
 
 	checkResp {
 		Found bool  `json:"found"`
-		Price int64 `form:"price"`
+		Price int64 `json:"price"`
 	}
 )
 
 service bookstore-api {
-	@handler Addhandler
-	get /add(addReq) returns(addResp)
+	@handler AddHandler
+	get /add (addReq) returns (addResp)
 	
 	@handler CheckHandler
-	post /check(checkReq) returns(checkResp)
+	get /check (checkReq) returns (checkResp)
 }
