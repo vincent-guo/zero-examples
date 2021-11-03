@@ -55,7 +55,7 @@ func NewUserModel(conn sqlx.SqlConn, c cache.CacheConf) UserModel {
 
 func (m *defaultUserModel) FindAll() ([]*User, error) {
 	var resp []*User
-	err := m.QueryRowNoCache(&resp, "select * from user")
+	err := m.QueryRowsNoCache(&resp, "select * from user")
 	switch err {
 	case nil:
 		return resp, nil
