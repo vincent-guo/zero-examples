@@ -3,6 +3,7 @@ package logic
 import (
 	"context"
 
+	"blog/rpc/model"
 	"blog/rpc/user/internal/svc"
 	"blog/rpc/user/user"
 
@@ -24,7 +25,14 @@ func NewUpdateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateLogi
 }
 
 func (l *UpdateLogic) Update(in *user.User) (*user.CommResp, error) {
-	// todo: add your logic here and delete this line
+	err := l.svcCtx.Model.Update(model.User{
+		Password: in.Password,
+		Username: in.Username,
+		Id:       in.Id,
+	})
+	if err != nil {
+		return nil, err
+	}
 
-	return &user.CommResp{}, nil
+	return &user.CommResp{Ok: true}, nil
 }
