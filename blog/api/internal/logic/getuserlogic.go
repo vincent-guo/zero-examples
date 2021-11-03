@@ -5,6 +5,7 @@ import (
 
 	"blog/api/internal/svc"
 	"blog/api/internal/types"
+	"blog/rpc/user/users"
 
 	"github.com/tal-tech/go-zero/core/logx"
 )
@@ -24,7 +25,14 @@ func NewGetUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) GetUserLog
 }
 
 func (l *GetUserLogic) GetUser(req types.ReqUserId) (*types.User, error) {
-	// todo: add your logic here and delete this line
+	resp, err := l.svcCtx.User.Get(l.ctx, &users.ReqUserId{Id: req.Id})
+	if err != nil {
+		return nil, err
+	}
 
-	return &types.User{}, nil
+	return &types.User{
+		Id:       resp.Id,
+		Username: resp.Username,
+		Password: resp.Password,
+	}, nil
 }

@@ -5,6 +5,7 @@ import (
 
 	"blog/api/internal/svc"
 	"blog/api/internal/types"
+	"blog/rpc/user/users"
 
 	"github.com/tal-tech/go-zero/core/logx"
 )
@@ -24,7 +25,10 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) LoginLogic {
 }
 
 func (l *LoginLogic) Login(req types.ReqUser) (*types.RespLogin, error) {
-	// todo: add your logic here and delete this line
+	resp, err := l.svcCtx.User.Login(l.ctx, &users.LoginReq{Username: req.Username, Password: req.Password})
+	if err != nil {
+		return nil, err
+	}
 
-	return &types.RespLogin{}, nil
+	return &types.RespLogin{Token: resp.Token}, nil
 }
